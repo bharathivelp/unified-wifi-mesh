@@ -80,7 +80,7 @@ void em_ctrl_t::handle_dm_commit(em_bus_event_t *evt)
         em_printfout("data model mac: %s and info->net_id : %s\n",mac_str, info->net_id);
         memcpy(new_dm.m_device.m_device_info.id.dev_mac, info->mac, sizeof(mac_addr_t));
         memcpy(new_dm.m_device.m_device_info.intf.mac, info->mac, sizeof(mac_addr_t));
-        strncpy(new_dm.m_device.m_device_info.id.net_id, info->net_id, strlen(info->net_id) + 1);
+        snprintf(new_dm.m_device.m_device_info.id.net_id, sizeof(new_dm.m_device.m_device_info.id.net_id), "%s", info->net_id);
         em_printfout("data model dev mac: %s and int.mac: %s\n", util::mac_to_string(new_dm.m_device.m_device_info.id.dev_mac).c_str(),
             util::mac_to_string(new_dm.m_device.m_device_info.intf.mac).c_str());
 

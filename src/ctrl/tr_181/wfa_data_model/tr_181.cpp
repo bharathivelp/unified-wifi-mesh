@@ -1045,6 +1045,11 @@ bus_error_t tr_181_t::set_node_sync(char *event_name, raw_data_t *p_data, bus_us
 
 bus_error_t tr_181_t::subs_policy_config(char *event_name, raw_data_t *p_data, bus_user_data_t *user_data)
 {
+    if (p_data == NULL || p_data->raw_data.bytes == NULL || p_data->raw_data_len > EM_MAX_EVENT_DATA_LEN) {
+        em_printfout("Invalid policy config event payload");
+        return bus_error_invalid_input;
+    }
+
     em_printfout(" Subs Event rcvd: %s\n Policy cfg is of len: %d and : \n%s", event_name, p_data->raw_data_len, p_data->raw_data.bytes);
 
     //send it to decode and apply policy
